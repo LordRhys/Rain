@@ -1,6 +1,7 @@
 package com.lordrhys.rain.entity.mob;
 
 import com.lordrhys.rain.Game;
+import com.lordrhys.rain.entity.projectile.Projectile;
 import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.graphics.Sprite;
 import com.lordrhys.rain.input.Keyboard;
@@ -43,8 +44,15 @@ public class Player extends Mob{
     else {
       walking = false;
     }
-
+    clear();
     updateShooting();
+  }
+
+  private void clear() {
+    for (int i = 0; i < projectiles.size(); i++){
+      Projectile p = projectiles.get(i);
+      if (p.isRemoved()) projectiles.remove(i);
+    }
   }
 
   private void updateShooting() {

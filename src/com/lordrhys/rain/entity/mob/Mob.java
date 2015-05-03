@@ -39,7 +39,9 @@ public abstract class Mob extends Entity{
     }
   }
 
-  public void update(){}
+  public void update(){
+
+  }
 
   protected void shoot(int x, int y, double dir) {
     //dir *= 180 / Math.PI;
