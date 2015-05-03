@@ -14,7 +14,7 @@ public class SpawnHedgeTile extends Tile {
   }
 
   public void render(int x, int y, Screen screen){
-    screen.renderTile(x << 4, y << 4, Sprite.spawn_hedge);
+    screen.renderTile(x << 4, y << 4, Tile.spawn_hedge);
   }
 
   public boolean solid(){

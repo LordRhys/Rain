@@ -60,6 +60,9 @@ public class Sprite {
   public static Sprite player_right_1 = new Sprite(16, 9, 14, SpriteSheet.tiles);
   public static Sprite player_right_2 = new Sprite(16, 9, 15, SpriteSheet.tiles);
 
+  // Projectile Sprites here:
+  public static Sprite projectile_wizard = new Sprite(16,0,0,SpriteSheet.projectile_wizard);
+
   public Sprite(int size, int x, int y, SpriteSheet sheet) {
     SIZE = size;
     pixels = new int[SIZE * SIZE];
