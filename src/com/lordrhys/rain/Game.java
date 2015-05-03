@@ -22,9 +22,9 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable {
   private static final long serialVersionUID = 1L;
 
-  public static int width = 300;
-  public static  int height = 168;  //width / 16 * 9;
-  public  static int scale = 3;
+  private static int width = 300;
+  private static  int height = 168;  //width / 16 * 9;
+  private   static int scale = 3;
   public static String title = "Rain";
 
   private Thread thread;
@@ -56,6 +56,14 @@ public class Game extends Canvas implements Runnable {
     Mouse mouse = new Mouse();
     addMouseListener(mouse);
     addMouseMotionListener(mouse);
+  }
+
+  public static int getWindowWidth() {
+    return width * scale;
+  }
+
+  public static int getWindowHeight() {
+    return height * scale;
   }
 
   public synchronized void start(){
@@ -107,6 +115,7 @@ public class Game extends Canvas implements Runnable {
   public void update(){
     key.update();
     player.update();
+    level.update();
   }
 
   public void render(){
@@ -131,7 +140,7 @@ public class Game extends Canvas implements Runnable {
     g.setColor(Color.WHITE);
     g.setFont(new Font("Verdana", 0, 50));
     if (Mouse.getButton() != -1) g.drawString("Button: " + Mouse.getButton(), 80, 80);
-    g.fillRect(Mouse.getX() - 32,Mouse.getY() -32,64,64);
+    //g.fillRect(Mouse.getX() - 32,Mouse.getY() -32,64,64);
     g.dispose();
     bs.show();
   }

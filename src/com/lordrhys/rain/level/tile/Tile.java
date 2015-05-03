@@ -20,8 +20,8 @@ public class Tile {
   public static Tile spawn_grass = new SpawnGrassTile(Sprite.spawn_grass);
   public static Tile spawn_hedge = new SpawnHedgeTile(Sprite.spawn_hedge);
   public static Tile spawn_water = new SpawnWaterTile(Sprite.spawn_water);
-  public static Tile spawn_wall1 = new SpawnWallTile(Sprite.spawn_wall1);
-  public static Tile spawn_wall2 = new SpawnWallTile(Sprite.spawn_wall2);
+  public static Tile spawn_wall1 = new SpawnWallTile1(Sprite.spawn_wall1);
+  public static Tile spawn_wall2 = new SpawnWallTile2(Sprite.spawn_wall2);
   public static Tile spawn_floor = new SpawnFloorTile(Sprite.spawn_floor);
 
   public static final int col_spawn_grass = 0xFF00C600;
