@@ -8,12 +8,13 @@ import com.lordrhys.rain.graphics.Sprite;
  */
 public class WizardProjectile extends Projectile {
 
+  public static final int FIRE_RATE = 10;
+
   public WizardProjectile(int x, int y, double dir) {
     super(x, y, dir);
-    range = 20;
+    range = 100; //random.nextInt(100) + 150;
     speed = 2;
     damage = 20;
-    rateOfFire = 10;
     sprite = Sprite.projectile_wizard;
 
     nx = speed * Math.cos(angle);
@@ -21,12 +22,13 @@ public class WizardProjectile extends Projectile {
   }
 
   public void update(){
+    if (level.tileCollision( x, y, nx, ny, 8)) remove();
     move();
   }
 
   protected void move(){
-    x += nx;
-    y += ny;
+      x += nx;
+      y += ny;
 
     if (distance() > range)
       remove();

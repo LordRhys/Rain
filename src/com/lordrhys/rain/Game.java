@@ -2,6 +2,7 @@ package com.lordrhys.rain;
 
 import com.lordrhys.rain.entity.mob.Player;
 import com.lordrhys.rain.graphics.Screen;
+import com.lordrhys.rain.graphics.Sprite;
 import com.lordrhys.rain.input.Keyboard;
 import com.lordrhys.rain.input.Mouse;
 import com.lordrhys.rain.level.Level;
@@ -130,6 +131,9 @@ public class Game extends Canvas implements Runnable {
     int yScroll = player.y - screen.height/2;
     level.render(xScroll, yScroll, screen);
     player.render(screen);
+
+    Sprite sprite = new Sprite(60, height, 0xffFF6A00);
+    screen.renderSprite(width - 60,0,sprite,false);
 
     for (int i = 0; i < pixels.length; i++){
       pixels[i] = screen.pixels[i];
