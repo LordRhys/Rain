@@ -1,6 +1,7 @@
 package com.lordrhys.rain.entity.mob;
 
 import com.lordrhys.rain.entity.Entity;
+import com.lordrhys.rain.entity.particle.Particle;
 import com.lordrhys.rain.entity.projectile.Projectile;
 import com.lordrhys.rain.entity.projectile.WizardProjectile;
 import com.lordrhys.rain.graphics.Sprite;
@@ -44,7 +45,7 @@ public abstract class Mob extends Entity{
   protected void shoot(int x, int y, double dir) {
     //dir *= 180 / Math.PI;
     Projectile p = new WizardProjectile(x, y, dir);
-    level.addProjectile(p);
+    level.add(p);
   }
 
   public void render(){}

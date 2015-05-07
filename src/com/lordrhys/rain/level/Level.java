@@ -1,6 +1,7 @@
 package com.lordrhys.rain.level;
 
 import com.lordrhys.rain.entity.Entity;
+import com.lordrhys.rain.entity.particle.Particle;
 import com.lordrhys.rain.entity.projectile.Projectile;
 import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.level.tile.Tile;
@@ -19,7 +20,8 @@ public class Level {
   protected int tile_size;
 
   private List<Entity> entities = new ArrayList<Entity>();
-  public List<Projectile> projectiles = new ArrayList<Projectile>();
+  private List<Projectile> projectiles = new ArrayList<Projectile>();
+  private List<Particle> particles = new ArrayList<Particle>();
 
   public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
@@ -48,6 +50,22 @@ public class Level {
     for (int i = 0; i < projectiles.size(); i++) {
       projectiles.get(i).update();
     }
+    for (int i = 0; i < particles.size(); i++) {
+      particles.get(i).update();
+    }
+    remove();
+  }
+
+  private void remove(){
+    for (int i = 0; i < entities.size(); i++) {
+      if (entities.get(i).isRemoved()) entities.remove(i);
+    }
+    for (int i = 0; i < projectiles.size(); i++) {
+      if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+    }
+    for (int i = 0; i < particles.size(); i++) {
+      if (particles.get(i).isRemoved()) particles.remove(i);
+    }
   }
 
   public List<Projectile> getProjectiles(){
@@ -68,7 +86,7 @@ public class Level {
   }
 
   public void render(int xScroll, int yScroll, Screen screen){
-    screen.setOffset(xScroll,yScroll);
+    screen.setOffset(xScroll, yScroll);
     int x0 = xScroll >> 4;
     int x1 = (xScroll + screen.width + 16) >> 4;
     int y0 = yScroll >> 4;
@@ -85,15 +103,22 @@ public class Level {
     for (int i = 0; i < projectiles.size(); i++) {
       projectiles.get(i).render(screen);
     }
+    for (int i = 0; i < particles.size(); i++) {
+      particles.get(i).render(screen);
+    }
   }
 
   public void add(Entity e){
-    entities.add(e);
-  }
+    e.init(this);
+    if (e instanceof Particle){
+      particles.add((Particle) e);
+    }else if (e instanceof Projectile){
+      projectiles.add((Projectile) e);
+    }
+    else {
+      entities.add(e);
+    }
 
-  public void addProjectile(Projectile p){
-    p.init(this);
-    projectiles.add(p);
   }
 
   //Grass = 0xFF00FF00

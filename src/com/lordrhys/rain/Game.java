@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 
 /**
@@ -131,9 +132,6 @@ public class Game extends Canvas implements Runnable {
     int yScroll = player.y - screen.height/2;
     level.render(xScroll, yScroll, screen);
     player.render(screen);
-
-    Sprite sprite = new Sprite(60, height, 0xffFF6A00);
-    screen.renderSprite(width - 60,0,sprite,false);
 
     for (int i = 0; i < pixels.length; i++){
       pixels[i] = screen.pixels[i];

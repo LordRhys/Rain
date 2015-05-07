@@ -1,5 +1,7 @@
 package com.lordrhys.rain.entity.projectile;
 
+import com.lordrhys.rain.entity.spawner.ParticleSpawner;
+import com.lordrhys.rain.entity.spawner.Spawner;
 import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.graphics.Sprite;
 
@@ -22,7 +24,10 @@ public class WizardProjectile extends Projectile {
   }
 
   public void update(){
-    if (level.tileCollision( x, y, nx, ny, 8)) remove();
+    if (level.tileCollision( x, y, nx, ny, 8)){
+      level.add(new ParticleSpawner((int) x, (int) y, 44, 50, level));
+        remove();
+    }
     move();
   }
 
