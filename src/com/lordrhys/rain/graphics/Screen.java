@@ -83,7 +83,7 @@ public class Screen {
     }
   }
 
-  /*public void renderPlayer(int xp, int yp, Sprite sprite){ //int flip
+  public void renderPlayer(int xp, int yp, Sprite sprite){ //int flip
     xp -= xOffset;
     yp -= yOffset;
     for (int y = 0; y < 32; y++){
@@ -103,9 +103,9 @@ public class Screen {
         }
       }
     }
-  }*/
+  }
 
-  public void renderPlayer(int xp, int yp, Sprite sprite){
+  /*public void renderPlayer(int xp, int yp, Sprite sprite){
     xp -= xOffset;
     yp -= yOffset;
     for (int y = 0; y < 16; y++){
@@ -120,7 +120,7 @@ public class Screen {
         }
       }
     }
-  }
+  }*/
 
   public void setOffset(int xOffset, int yOffset){
     this.xOffset = xOffset;
