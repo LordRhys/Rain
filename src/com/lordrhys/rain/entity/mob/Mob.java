@@ -4,6 +4,7 @@ import com.lordrhys.rain.entity.Entity;
 import com.lordrhys.rain.entity.particle.Particle;
 import com.lordrhys.rain.entity.projectile.Projectile;
 import com.lordrhys.rain.entity.projectile.WizardProjectile;
+import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by hbao506 on 4/28/2015.
  */
-public abstract class Mob extends Entity{
+public abstract class Mob extends Entity {
 
   protected Sprite sprite;
   protected int dir = 0;
@@ -38,9 +39,7 @@ public abstract class Mob extends Entity{
     }
   }
 
-  public void update(){
-
-  }
+  public abstract void update();
 
   protected void shoot(int x, int y, double dir) {
     //dir *= 180 / Math.PI;
@@ -48,7 +47,7 @@ public abstract class Mob extends Entity{
     level.add(p);
   }
 
-  public void render(){}
+  public abstract void render(Screen screen);
 
   private boolean collision(int xa, int ya){
     boolean solid = false;
