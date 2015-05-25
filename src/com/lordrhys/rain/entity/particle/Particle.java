@@ -34,8 +34,6 @@ public class Particle extends Entity {
     this.zz = random.nextFloat() + 2.0;
   }
 
-
-
   public void update(){
     time++;
     if (time >= 7400) time = 0;
@@ -51,6 +49,20 @@ public class Particle extends Entity {
     this.xx += xa;
     this.yy += ya;
     this.zz += za;
+  }
+
+  private boolean collision(double xa, double ya){
+    boolean solid = false;
+    for (int c = 0; c < 4; c++){
+      double xt = ((x + xa) + c % 2 * 5 - 10) / 16;
+      double yt = ((y + ya) + c / 2 * 5 - 6) / 16;
+      int ix = (int)Math.ceil(xt);
+      int iy = (int)Math.ceil(yt);
+      if (c % 2 == 0) ix = (int)Math.floor(xt);
+      if (c / 2 == 0) iy = (int)Math.floor(yt);
+      if (level.getTile(ix, iy).solid()) solid = true;
+    }
+    return solid;
   }
 
   public void render(Screen screen) {

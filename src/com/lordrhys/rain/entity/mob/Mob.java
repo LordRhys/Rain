@@ -4,6 +4,7 @@ import com.lordrhys.rain.entity.Entity;
 import com.lordrhys.rain.entity.particle.Particle;
 import com.lordrhys.rain.entity.projectile.Projectile;
 import com.lordrhys.rain.entity.projectile.WizardProjectile;
+import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -12,14 +13,18 @@ import java.util.List;
 /**
  * Created by hbao506 on 4/28/2015.
  */
-public abstract class Mob extends Entity{
+public abstract class Mob extends Entity {
 
-  protected Sprite sprite;
-  protected int dir = 0;
   protected boolean moving = false;
   protected boolean walking = false;
 
-  public void move(int xa, int ya){
+  protected enum Direction {
+    UP, DOWN, LEFT, RIGHT
+  }
+
+  protected Direction dir;
+
+  public void move(double xa, double ya){
 
     if (xa != 0 && ya != 0){
       move(xa, 0);
@@ -27,20 +32,29 @@ public abstract class Mob extends Entity{
       return;
     }
 
-    if (xa > 0) dir = 1;
-    if (xa < 0) dir = 3;
-    if (ya > 0) dir = 2;
-    if (ya < 0) dir = 0;
+    if (xa > 0) dir = Direction.RIGHT;
+    if (xa < 0) dir = Direction.LEFT;
+    if (ya > 0) dir = Direction.DOWN;
+    if (ya < 0) dir = Direction.UP;
 
-    if (!collision(xa, ya)) {
-      x += xa;
-      y += ya;
+    for (int x = 0; x < Math.abs(xa); x++){
+      if (!collision(abs(xa), ya)) {
+        this.x += abs(xa);
+      }
+    }
+    for (int y = 0; y < Math.abs(ya); y++){
+      if (!collision(xa, abs(ya))) {
+        this.y += abs(ya);
+      }
     }
   }
 
-  public void update(){
-
+  private int abs(double value){
+    if (value < 0) return -1;
+    return 1;
   }
+
+  public abstract void update();
 
   protected void shoot(int x, int y, double dir) {
     //dir *= 180 / Math.PI;
@@ -48,14 +62,18 @@ public abstract class Mob extends Entity{
     level.add(p);
   }
 
-  public void render(){}
+  public abstract void render(Screen screen);
 
-  private boolean collision(int xa, int ya){
+  private boolean collision(double xa, double ya){
     boolean solid = false;
     for (int c = 0; c < 4; c++){
-      int xt = ((x + xa) + c % 2 * 5 - 10) / 16;
-      int yt = ((y + ya) + c / 2 * 5 - 6) / 16;
-      if (level.getTile(xt, yt).solid()) solid = true;
+      double xt = ((x + xa) - c % 2 * 6 - 12) / 16;
+      double yt = ((y + ya) - c / 2 * 6 - 12) / 16;
+      int ix = (int)Math.ceil(xt);
+      int iy = (int)Math.ceil(yt);
+      if (c % 2 == 0) ix = (int)Math.floor(xt);
+      if (c / 2 == 0) iy = (int)Math.floor(yt);
+      if (level.getTile(ix, iy).solid()) solid = true;
     }
     return solid;
   }
