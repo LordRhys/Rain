@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Rain Created by Frank on 5/6/2015.
  */
-public class Spawner extends Entity {
+public abstract class Spawner extends Entity {
 
   public enum Type {
     MOB,

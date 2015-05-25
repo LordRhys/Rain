@@ -27,7 +27,7 @@ public class Sprite {
 
 
   //Player Sprites here:
-  /*public static Sprite player_forward = new Sprite(32, 0, 5, SpriteSheet.tiles);
+  public static Sprite player_forward = new Sprite(32, 0, 5, SpriteSheet.tiles);
   public static Sprite player_back = new Sprite(32, 2, 5, SpriteSheet.tiles);
   public static Sprite player_left = new Sprite(32, 3, 5, SpriteSheet.tiles);
   public static Sprite player_right = new Sprite(32, 1, 5, SpriteSheet.tiles);
@@ -42,9 +42,10 @@ public class Sprite {
   public static Sprite player_left_2 = new Sprite(32, 3, 7, SpriteSheet.tiles);
 
   public static Sprite player_right_1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
-  public static Sprite player_right_2 = new Sprite(32, 1, 7, SpriteSheet.tiles);*/
+  public static Sprite player_right_2 = new Sprite(32, 1, 7, SpriteSheet.tiles);
 
-  public static Sprite player_forward = new Sprite(16, 8, 13, SpriteSheet.tiles);
+  // 16 pixel King Cherno
+  /*public static Sprite player_forward = new Sprite(16, 8, 13, SpriteSheet.tiles);
   public static Sprite player_back = new Sprite(16, 10, 13, SpriteSheet.tiles);
   public static Sprite player_left = new Sprite(16, 11, 13, SpriteSheet.tiles);
   public static Sprite player_right = new Sprite(16, 9, 13, SpriteSheet.tiles);
@@ -59,7 +60,11 @@ public class Sprite {
   public static Sprite player_left_2 = new Sprite(16, 11, 15, SpriteSheet.tiles);
 
   public static Sprite player_right_1 = new Sprite(16, 9, 14, SpriteSheet.tiles);
-  public static Sprite player_right_2 = new Sprite(16, 9, 15, SpriteSheet.tiles);
+  public static Sprite player_right_2 = new Sprite(16, 9, 15, SpriteSheet.tiles);*/
+
+  //Dummy Default Sprites here:
+  public static Sprite dummy = new Sprite(32, 0, 0, SpriteSheet.dummy_down);
+
 
   // Projectile Sprites here:
   public static Sprite projectile_wizard = new Sprite(16,0,1,SpriteSheet.projectile_wizard);
@@ -123,9 +128,9 @@ public class Sprite {
   }
 
   private void load() {
-    for (int y = 0; y < SIZE; y++){
-      for (int x = 0; x < SIZE; x++){
-        pixels[x + y * SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SIZE];
+    for (int y = 0; y < height; y++){
+      for (int x = 0; x < width; x++){
+        pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH];
       }
     }
   }
