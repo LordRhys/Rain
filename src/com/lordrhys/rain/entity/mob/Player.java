@@ -49,21 +49,22 @@ public class Player extends Mob{
     if (walking) animSprite.update();
     else animSprite.setFrame(0);
     if (fireRate > 0) fireRate--;
-    int xa = 0, ya = 0;
+    double xa = 0, ya = 0;
+    double speed = 1.0;
     /*if (anim < 7500) anim++;
     else anim = 0;*/
     if (input.up) {
-      ya -= 2;
+      ya -= speed;
       animSprite = up;
     }else if (input.down) {
-      ya += 2;
+      ya += speed;
       animSprite = down;
     }
     if (input.left) {
-      xa -= 2;
+      xa -= speed;
       animSprite = left;
     }else if (input.right) {
-      xa += 2;
+      xa += speed;
       animSprite = right;
     }
 
@@ -99,6 +100,6 @@ public class Player extends Mob{
   public void render(Screen screen){
     sprite = animSprite.getSprite();
     //screen.renderMob(x - 16, y - 16, sprite);
-    screen.renderMob(x - 24, y - 32, sprite);
+    screen.renderMob((int)(x - 24), (int)(y - 32), sprite);
   }
 }
