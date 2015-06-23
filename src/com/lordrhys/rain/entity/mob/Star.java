@@ -4,11 +4,15 @@ import com.lordrhys.rain.graphics.AnimatedSprite;
 import com.lordrhys.rain.graphics.Screen;
 import com.lordrhys.rain.graphics.Sprite;
 import com.lordrhys.rain.graphics.SpriteSheet;
+import com.lordrhys.rain.level.Node;
+import com.lordrhys.rain.util.Vector2i;
+
+import java.util.List;
 
 /**
- * Created by hbao506 on 5/15/2015.
+ * Created by hbao506 on 6/4/2015.
  */
-public class Dummy extends Mob {
+public class Star extends Mob{
 
   private AnimatedSprite down  = new AnimatedSprite(SpriteSheet.dummy_down,32, 32, 3);
   private AnimatedSprite up  = new AnimatedSprite(SpriteSheet.dummy_up,32, 32, 3);
@@ -17,10 +21,12 @@ public class Dummy extends Mob {
 
   private AnimatedSprite animSprite = down;
   private int time = 0;
-  private int xa = 0;
-  private int ya = 0;
+  private double xa = 0;
+  private double ya = 0;
+  private double speed = 0.8;
+  private List<Node> path = null;
 
-  public Dummy(int x, int y) {
+  public Star(int x, int y) {
     this.x = x << 4;
     this.y = y << 4;
     sprite = Sprite.dummy;
@@ -28,15 +34,7 @@ public class Dummy extends Mob {
 
   public void update() {
     time++;
-    if (time % (random.nextInt(50) + 30) == 0){
-      xa = random.nextInt(3) - 1;
-      ya = random.nextInt(3) - 1;
-      if (random.nextInt(4) == 0){
-        xa = 0;
-        ya = 0;
-      }
-    }
-
+    move();
     if (walking) animSprite.update();
     else animSprite.setFrame(0);
     if (ya < 0) {
@@ -53,8 +51,29 @@ public class Dummy extends Mob {
       animSprite = right;
       dir = Direction.RIGHT;
     }
+  }
+
+  private void move() {
+    xa = 0;
+    ya = 0;
+    int px = (int) level.getPlayerAt(0).getX();
+    int py = (int) level.getPlayerAt(0).getY();
+    Vector2i start = new Vector2i((int) (getX()) >> 4, (int) (getY()) >> 4);
+    Vector2i destination = new Vector2i(px >> 4, py >> 4);
+    if (time % 60 == 0) {
+      path = level.findPath(start,destination);
+    }
+    if (path != null){
+      if (path.size() > 0){
+        Vector2i vec = path.get(path.size() - 1).tile;
+        if (x < vec.getX() << 4) xa++;
+        if (x > vec.getX() << 4) xa--;
+        if (y < vec.getY() << 4) ya++;
+        if (y > vec.getY() << 4) ya--;
+      }
+    }
     if (xa != 0 || ya != 0){
-      //move(xa, ya);
+      move(xa, ya);
       walking = true;
     }
     else {
@@ -64,6 +83,6 @@ public class Dummy extends Mob {
 
   public void render(Screen screen) {
     sprite = animSprite.getSprite();
-    screen.renderMob((int)(x - 24), (int)(y - 32), sprite);
+    screen.renderMob((int)(x - 24), (int)(y - 32), this);
   }
 }

@@ -2,6 +2,8 @@ package com.lordrhys.rain.level;
 
 import com.lordrhys.rain.entity.mob.Chaser;
 import com.lordrhys.rain.entity.mob.Dummy;
+import com.lordrhys.rain.entity.mob.Shooter;
+import com.lordrhys.rain.entity.mob.Star;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -27,12 +29,13 @@ public class SpawnLevel extends Level{
       e.printStackTrace();
       System.out.println("Exception! could not load Level file!");
     }
-    add(new Chaser(25, 40));
+    //add(new Chaser(25, 40));
+    //add(new Star(22, 29));
+    add(new Shooter(25,45));
     for (int i = 0; i < 3; i++) {
-      add(new Dummy(20, 40));
+      add(new Dummy(20 + i * 4, 40 + i * 6));
     }
   }
-
 
   protected void generateLevel(){
   }
